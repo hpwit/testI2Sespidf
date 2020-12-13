@@ -1,4 +1,4 @@
-# Install script for directory: /Users/yvesbazin/esp/projects/hello_world/components/virtual
+# Install script for directory: /Users/yvesbazin/Documents/projects/hello_world/components/virtual
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

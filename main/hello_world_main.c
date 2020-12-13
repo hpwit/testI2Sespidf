@@ -20,7 +20,7 @@
 #ifdef CONFIG_IDF_TARGET_ESP32S2BETA
 #define CHIP_NAME "ESP32-S2 Beta"
 #endif
-#include "pp.h"
+//#include "pp.h"
 
 
 ///static er p;
@@ -47,9 +47,10 @@ void task2(void *param)
 void app_main(void)
 {
     printf("Hello world!\n");
-    xTaskCreatePinnedToCore(task2 ,"task2", 3000, NULL,1, &task2rameHandle, 0);
-        xTaskCreatePinnedToCore(task, "task", 3000, NULL,1, &taskrameHandle, 1);
+    //xTaskCreatePinnedToCore(task2 ,"task2", 3000, NULL,1, &task2rameHandle, 0);
+      //  xTaskCreatePinnedToCore(task, "task", 3000, NULL,1, &taskrameHandle, 1);
     /* Print chip information */
+    
     esp_chip_info_t chip_info;
     esp_chip_info(&chip_info);
     printf("This is %s chip with %d CPU cores, WiFi%s%s, ",

@@ -21,6 +21,8 @@
        
 /* List of deprecated options */
 /* If BT is not built at all */
+ASSERT((0x1E000 <= 0x2c200),
+          "Fixed static ram data does not fit.")
 MEMORY
 {
   /* All these values assume the flash cache is on, and have the blocks this uses subtracted from the length
@@ -48,7 +50,7 @@ MEMORY
      additional static memory temporarily cannot be used.
   */
   dram0_0_seg (RW) : org = 0x3FFB0000 + 0x0,
-                                     len = 0x2c200 - 0x0
+                                     len = 0x1E000 - 0x0
   /* Flash mapped constant data */
   drom0_0_seg (R) : org = 0x3F400020, len = 0x400000-0x20
   /* (See iram0_2_seg for meaning of 0x20 offset in the above.) */
@@ -62,12 +64,13 @@ MEMORY
      Start of RTC slow memory is reserved for ULP co-processor code + data, if enabled.
   */
   rtc_slow_seg(RW) : org = 0x50000000 + 0,
-                                     len = 0x1000 - 0
+                                     len = 0x2000 - 0
   /* external memory ,including data and text */
   extern_ram_seg(RWX) : org = 0x3F800000,
                                      len = 0x400000
 }
-_static_data_end = _bss_end;
+/* static data ends at defined address */
+_static_data_end = 0x3FFB0000 + 0x1E000;
 /* Heap ends at top of dram0_0_seg */
 _heap_end = 0x40000000 - 0x0;
 _data_seg_org = ORIGIN(rtc_data_seg);

@@ -1,0 +1,219 @@
+/*
+This little bit of code is executed in-place by one CPU, but copied to a different memory region
+by the other CPU. Make sure it stays position-independent.
+*/
+    .text
+    .align  4
+    .global testasm
+    .type   testasm,@function
+//Args:
+//a2 - buffer
+//a3 - mask
+//a4 - notmask
+//a5 - x
+//a6 - y
+//a7 - z
+//a8 - upper mask
+testasm:
+   
+
+
+  entry a1, 64
+   
+//creation mask
+
+    movi a9,129
+    ssl a3
+    sll a9,a9
+    movi.n a4, -1
+    xor a4,a9,a4
+    
+
+    movi a9,128
+    ssl a3
+    sll a8,a9
+
+    movi a9,1
+    ssl a3
+    sll a3,a9
+
+
+
+    l16ui a9,a2,2
+    and a9,a9,a4
+    BBCI a5,7,zero7
+    or a9,a9,a3
+    zero7:
+   // movi a9,147
+    s16i a9,a2,2
+
+
+    l32i a9,a2,12
+    and a9,a9,a4
+    BBCI a5,6,zero6
+    or a9,a9,a3
+    zero6:
+    BBCI a5,5,zero5
+    or a9,a9,a8
+    zero5:
+    s32i a9,a2,12 
+
+
+    l32i a9,a2,24
+    and a9,a9,a4
+    BBCI a5,4,zero4
+    or a9,a9,a3
+    zero4:
+    BBCI a5,3,zero3
+    or a9,a9,a8
+    zero3:
+    s32i a9,a2,24
+
+
+   l32i a9,a2,36
+    and a9,a9,a4
+    BBCI a5,2,zero2
+    or a9,a9,a3
+    zero2:
+    BBCI a5,1,zero1
+    or a9,a9,a8
+    zero1:
+    s32i a9,a2,36
+/*
+    l16ui a9,a2,48
+    and a9,a9,a4
+    BBCI a5,0,zero0
+    or a9,a9,a3
+    zero0:
+    s16i a9,a2,48 
+
+    addi a2,a2,48
+
+
+   
+    l16ui a9,a2,2
+    and a9,a9,a4
+    BBCI a6,7,zero70
+    or a9,a9,a3
+    zero70:
+    s16i a9,a2,2
+
+*/
+   l32i a9,a2,48
+    and a9,a9,a4
+    BBCI a5,0,zero0
+    or a9,a9,a3
+    zero0:
+    BBCI a6,7,zero70
+    or a9,a9,a8
+    zero70:
+    s32i a9,a2,48
+
+
+    addi a2,a2,48 
+
+    l32i a9,a2,12
+    and a9,a9,a4
+    BBCI a6,6,zero60
+    or a9,a9,a3
+    zero60:
+    BBCI a6,5,zero50
+    or a9,a9,a8
+    zero50:
+    s32i a9,a2,12 
+
+
+    l32i a9,a2,24
+    and a9,a9,a4
+    BBCI a6,4,zero40
+    or a9,a9,a3
+    zero40:
+    BBCI a6,3,zero30
+    or a9,a9,a8
+    zero30:
+    s32i a9,a2,24
+
+
+   l32i a9,a2,36
+    and a9,a9,a4
+    BBCI a6,2,zero20
+    or a9,a9,a3
+    zero20:
+    BBCI a6,1,zero10
+    or a9,a9,a8
+    zero10:
+    s32i a9,a2,36
+/*
+    l16ui a9,a2,48
+    and a9,a9,a4
+    BBCI a5,0,zero00
+    or a9,a9,a3
+    zero00:
+    s16i a9,a2,48 
+
+
+    addi a2,a2,48
+
+
+    l16ui a9,a2,2
+    and a9,a9,a4
+    BBCI a7,7,zero700
+    or a9,a9,a3
+    zero700:
+    s16i a9,a2,2
+*/
+
+   l32i a9,a2,48
+    and a9,a9,a4
+    BBCI a6,0,zero00
+    or a9,a9,a3
+    zero00:
+    BBCI a7,7,zero700
+    or a9,a9,a8
+    zero700:
+    s32i a9,a2,48
+
+
+    addi a2,a2,48 
+
+    l32i a9,a2,12
+    and a9,a9,a4
+    BBCI a7,6,zero600
+    or a9,a9,a3
+    zero600:
+    BBCI a7,5,zero500
+    or a9,a9,a8
+    zero500:
+    s32i a9,a2,12 
+
+
+    l32i a9,a2,24
+    and a9,a9,a4
+    BBCI a7,4,zero400
+    or a9,a9,a3
+    zero400:
+    BBCI a7,3,zero300
+    or a9,a9,a8
+    zero300:
+    s32i a9,a2,24
+
+
+   l32i a9,a2,36
+    and a9,a9,a4
+    BBCI a7,2,zero200
+    or a9,a9,a3
+    zero200:
+    BBCI a7,1,zero100
+    or a9,a9,a8
+    zero100:
+    s32i a9,a2,36
+
+    l16ui a9,a2,48
+    and a9,a9,a4
+    BBCI a7,0,zero000
+    or a9,a9,a3
+    zero000:
+    s16i a9,a2,48 
+
+retw  
+ 
